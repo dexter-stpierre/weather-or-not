@@ -3,3 +3,5 @@ node_modules/
 .idea/
 *.log
 *.logs
+server/modules/map.comparions.js
+server/modules/api.requests.js

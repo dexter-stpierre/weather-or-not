@@ -1,18 +1,15 @@
 <div class="container">
-  <h1 class="lead">Login</h1>
-    <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
-    <form ng-submit="lc.login()">
-      <div>
-          <label for="username">Username:</label>
-          <input type="text" ng-model="lc.user.username" />
-      </div>
-      <div>
-          <label for="password">Password:</label>
-          <input type="password" ng-model="lc.user.password" />
-      </div>
-      <div>
-          <input class="btn btn-default" type="submit" name="submit" value="Log In" />
-          <a href="#register">Register</a>
-      </div>
+  <div id="new-trip">
+    <form class="new-trip-form" ng-submit="ntc.submitNewTrip(ntc.newTrip)">
+      <label>Origin</label>
+      <input type="text" ng-model="ntc.newTrip.origin">
+      <label>Destination</label>
+      <input type="text" ng-model="ntc.newTrip.destination">
+      <label>Time of Departure</label>
+      <input type="date" ng-model="ntc.newTrip.departure.date">
+      <input type="time" ng-model="ntc.newTrip.departure.time">
+      <button type="reset">Reset</button>
+      <button type="submit">Submit</button>
     </form>
+  </div>
 </div>

@@ -24,6 +24,14 @@ body, html {
   margin-top: 10px;
 }
 
+#header-bar {
+  height: 100px;
+}
+
+#three-bars {
+  font-size: 100px;
+}
+
 .container p{
   margin-top : 14px;
 }

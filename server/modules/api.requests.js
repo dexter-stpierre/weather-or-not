@@ -14,7 +14,7 @@ var requests = {
 
 function getFirstPolylines(newTrip) {
   requests.trip = {};
-  requests.trip.wayPoints = [];
+  requests.trip.wayPoints = [newTrip.origin];
   var loop = 0;
   var checkApi = setInterval(function(){
     loop ++;
@@ -28,7 +28,7 @@ function getFirstPolylines(newTrip) {
           // console.log(requests.timeIsochrone.polyline);
           console.log(requests.trip.route.travelTime);
           for (var i = 0; i < requests.trip.route.travelTime; i++) {
-
+            console.log(i);
           }
           var usefulCoordinate = compare.compareApiResults(requests.trip.route.polyline, requests.trip.distanceIsochrone.polyline, requests.trip.timeIsochrone.polyline);
           //console.log('usefulCoordinate', usefulCoordinate);
@@ -76,7 +76,7 @@ function firstConnectionToApi(newTrip){
 function getDistancePolyline(origin) {
   console.log('ditance polyline');
   //console.log(origin);
-  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin.x + '%2C%20' + origin.y + '&profile=driving-car&range_type=distance&range=60&units=mi&location_type=start&attributes=reachfactor&intersections=false&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
+  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=distance&range=60&units=mi&location_type=start&attributes=reachfactor&intersections=false&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
   var requestUrl = new URL(apiRequest)
   https.get(apiRequest, function(res){
     var { statusCode } = res;
@@ -127,7 +127,7 @@ function getDistancePolyline(origin) {
 function getTimePolyline(origin){
   console.log('time polyline');
   //console.log(origin);
-  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin.x + '%2C%20' + origin.y + '&profile=driving-car&range_type=time&range=3600&location_type=start&attributes=area&intersections=false&id=1&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
+  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=time&range=3600&location_type=start&attributes=area&intersections=false&id=1&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
   var requestUrl = new URL(apiRequest)
   https.get(apiRequest, function(res){
     var { statusCode } = res;
@@ -179,7 +179,7 @@ function getRouteDetails(trip) {
   console.log('route');
   var origin = trip.origin;
   var destination = trip.destination;
-  var apiRequest = 'https://api.openrouteservice.org/directions?coordinates=' + trip.origin.x + '%2C%20' + trip.origin.y + '|' + trip.destination.x + '%2C%20' + trip.destination.y + '&profile=driving-car&preference=fastest&units=mi&language=en&geometry=true&geometry_format=geojson&geometry_simplify=false&instructions=true&instructions_format=text&elevation=false&options=%7B%7D&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
+  var apiRequest = 'https://api.openrouteservice.org/directions?coordinates=' + trip.origin[0] + '%2C%20' + trip.origin[1] + '|' + trip.destination[0] + '%2C%20' + trip.destination[1] + '&profile=driving-car&preference=fastest&units=mi&language=en&geometry=true&geometry_format=geojson&geometry_simplify=false&instructions=true&instructions_format=text&elevation=false&options=%7B%7D&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
   var requestUrl = new URL(apiRequest)
   https.get(apiRequest, function(res){
     var { statusCode } = res;

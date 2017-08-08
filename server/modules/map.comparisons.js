@@ -1,7 +1,9 @@
+var compare = {
+  matches: [],
+  matchesPair: []
+};
 compare.compareApiResults = function(arrayA, arrayB, arrayC){
     var i = arrayA.length;
-    var tempMatches = [];
-    var tempMatchesPair = [];
     while (i--) {
       var j = arrayB.length;
       var k = arrayC.length;
@@ -16,8 +18,8 @@ compare.compareApiResults = function(arrayA, arrayB, arrayC){
         var bAtJ = arrayB[j];
         if (aAtI[1] > bAtJ[1] -.02 && aAtI[1] < bAtJ[1] + .0002) {
           if(aAtI[0] > bAtJ[0] -.02 && aAtI[0] < bAtJ[0] + .0002){
-            matches.push(aAtI);
-            matchesPair.push(bAtJ);
+            compare.matches.push(aAtI);
+            compare.matchesPair.push(bAtJ);
             //console.log("match found: ", match, arrayB[j]);
           }
         }
@@ -28,14 +30,14 @@ compare.compareApiResults = function(arrayA, arrayB, arrayC){
         if(aAtI[1] > cAtK[1] - .002 && aAtI[1] < cAtK[1] + .002){
           //if(aAtI[0] > bAtJ[0] - .02 && aAtI[0] < bAtJ[0] + .02){
           if(aAtI[0] > cAtK[0] - .002 && aAtI[0] < cAtK[0] + .002){
-            matches.push(aAtI);
-            matchesPair.push(cAtK);
+            compare.matches.push(aAtI);
+            compare.matchesPair.push(cAtK);
             //console.log("match found: ", match, arrayC[k]);
           }
         }
       }
-    }console.log(matches);
-    console.log(matchesPair);
+    }console.log(compare.matches.length, compare.matches);
+    console.log(compare.matchesPair.length, compare.matchesPair);
   } // end of compare
 
 module.exports = compare;

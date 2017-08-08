@@ -9,10 +9,10 @@ router.post('/newtrip', function(req, res) {
   var trip = {};
   console.log(req.body);
   newTrip = req.body;
-  getPolylines(newTrip)
+  getFirstPolylines(newTrip)
 });
 
-function getPolylines(newTrip) {
+function getFirstPolylines(newTrip) {
   var loop = 0;
   requests.newTrip(newTrip);
   var checkApi = setInterval(function(){
@@ -22,9 +22,10 @@ function getPolylines(newTrip) {
       if(requests.distanceIsochrone != undefined && requests.distanceIsochrone.error == false){
         if(requests.timeIsochrone != undefined && requests.timeIsochrone.error == false){
           console.log('api request complete');
-          console.log(requests.route.polyline);
-          console.log(requests.distanceIsochrone.polyline);
-          console.log(requests.timeIsochrone.polyline);
+          // console.log(requests.route.polyline);
+          // console.log(requests.distanceIsochrone.polyline);
+          // console.log(requests.timeIsochrone.polyline);
+          console.log(requests.route.travelTime);
           compare.compareApiResults(requests.route.polyline, requests.distanceIsochrone.polyline, requests.timeIsochrone.polyline)
           clearInterval(checkApi);
         }

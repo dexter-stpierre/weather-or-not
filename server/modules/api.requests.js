@@ -180,7 +180,12 @@ function getDistancePolyline(origin) {
         var parsedData = JSON.parse(rawData);
         //console.log('distancePolyline', parsedData.features[0].geometry.coordinates);
         trip = parsedData;
-        requests.trip.distanceIsochrone = {type: 'distance', error: false, isochroneDetails: parsedData, polyline: parsedData.features[0].geometry.coordinates[0]};
+        requests.trip.distanceIsochrone = {
+          type: 'distance',
+          error: false,
+          isochroneDetails: parsedData,
+          polyline: parsedData.features[0].geometry.coordinates[0]
+        };
         // compare.compareApiResults();
       } catch (e) {
         console.error(e.message);
@@ -231,7 +236,12 @@ function getTimePolyline(origin){
         var parsedData = JSON.parse(rawData);
         //console.log('timeIsochrone', parsedData.features[0].geometry.coordinates);
         trip = parsedData;
-        requests.trip.timeIsochrone = {type: 'time', error: false, isochroneDetails: parsedData, polyline: parsedData.features[0].geometry.coordinates[0]};
+        requests.trip.timeIsochrone = {
+          type: 'time',
+          error: false,
+          isochroneDetails: parsedData,
+          polyline: parsedData.features[0].geometry.coordinates[0]
+        };
         // compare.compareApiResults();
       } catch (e) {
         console.error(e.message);
@@ -290,7 +300,13 @@ function getRouteDetails(trip) {
         var remainder = remainderInMinutes / 60;
         console.log('timeInHours', timeInHours);
         console.log('remainder', remainder);
-        requests.trip.route = {durationInHours: travelTime, error: false, polyline: parsedData.routes[0].geometry.coordinates, routeDetails: parsedData, travelTime: timeInHours};
+        requests.trip.route = {
+          durationInHours: travelTime,
+          error: false,
+          polyline: parsedData.routes[0].geometry.coordinates,
+          routeDetails: parsedData,
+          travelTime: timeInHours
+        };
         // compare.compareApiResults();
       } catch (e) {
         console.error(e.message);

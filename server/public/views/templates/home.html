@@ -2,6 +2,7 @@
   <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANtN7zXwqEGAIwJjpy5vPKDcpsrvtCFm4&libraries=places"></script>
   <div id="new-trip">
     <form class="new-trip-form" ng-submit="ntc.submitNewTrip(ntc.newTrip)">
+      <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=" + {{ntc.YOUR_API_KEY}} + "&libraries=places"></script>
       <!-- <label>Origin</label>
       <input type="text" ng-model="ntc.newTrip.origin" placeholder="address or city, state">
       <label>Destination</label>

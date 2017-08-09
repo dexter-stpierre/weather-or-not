@@ -1,7 +1,9 @@
 var https = require('https');
 var {URL} = require('url');
-var compare = require('./map.comparisons.js')
+var compare = require('./map.comparisons.js');
 //var compare = require('map.comparisons.js');
+
+var i;
 
 var requests = {
   newTrip: function(newTrip) {
@@ -27,12 +29,12 @@ function getFirstPolylines(newTrip) {
           // console.log(requests.distanceIsochrone.polyline);
           // console.log(requests.timeIsochrone.polyline);
           console.log(requests.trip.route.travelTime);
-          for (var i = 0; i < requests.trip.route.travelTime; i++) {
-            console.log(i);
-          }
-          var usefulCoordinate = compare.compareApiResults(requests.trip.route.polyline, requests.trip.distanceIsochrone.polyline, requests.trip.timeIsochrone.polyline);
+          //var usefulCoordinate = compare.compareApiResults(requests.trip.route.polyline, requests.trip.distanceIsochrone.polyline, requests.trip.timeIsochrone.polyline);
           //console.log('usefulCoordinate', usefulCoordinate);
-          requests.trip.wayPoints.push(usefulCoordinate);
+          //requests.trip.wayPoints.push(usefulCoordinate);
+          console.log('requests.trip.wayPoints', requests.trip.wayPoints);
+          i = 0;
+          myLoop(requests,newTrip)
           console.log('requests.trip.wayPoints', requests.trip.wayPoints);
           clearInterval(checkApi);
         }
@@ -44,7 +46,7 @@ function getFirstPolylines(newTrip) {
     } else if (requests.trip.distanceIsochrone != undefined && requests.trip.distanceIsochrone.error == true) {
       console.log('distanceIsochrone request failure');
       console.log(requests.trip.distanceIsochrone.message);
-      clearInterval(che.tripckApi);
+      clearInterval(checkApi);
     } else if (requests.trip.timeIsochrone != undefined && requests.trip.timeIsochrone.error == true) {
       console.log('timeIsochrone request failure');
       console.log(requests.trip.timeIsochrone.message);
@@ -58,12 +60,69 @@ function getFirstPolylines(newTrip) {
 }
 
 function loopConnectionToApi(origin){
+  console.log('loopConnectionToApi');
+  console.log(origin);
   getDistancePolyline(origin);
   getTimePolyline(origin);
 }
 
-function getLoopPolylines(){
-  console.log('loop');
+function myLoop(requests, newTrip){
+  console.log('requests.trip.wayPoints.length: ', requests.trip.wayPoints.length);
+  if (requests.trip.wayPoints.length <= requests.trip.route.travelTime) {
+    i = requests.trip.wayPoints.length - 1;
+    requests.trip.distanceIsochrone = undefined;
+    requests.trip.timeIsochrone = undefined;
+    console.log('i = ', i);
+    console.log(requests.trip.wayPoints);
+    getLoopPolylines(newTrip);
+    loopConnectionToApi(requests.trip.wayPoints[i])
+  } else {
+    console.log('check complete');
+    console.log(newTrip);
+    requests.trip.wayPoints.push(newTrip.destination);
+    console.log(requests.trip.wayPoints);
+    console.log(requests.trip.wayPoints.length);
+  }
+  i++
+}
+
+function getLoopPolylines(newTrip){
+  var loop2 = 0;
+  console.log('getLoopPolylines');
+  var loopPolylineCheck = setInterval(function(){
+    console.log('interval');
+    if(requests.trip.distanceIsochrone != undefined && requests.trip.distanceIsochrone.error == false){
+      if(requests.trip.timeIsochrone != undefined && requests.trip.timeIsochrone.error == false){
+        console.log('api request complete');
+        // console.log(requests.route.polyline);
+        // console.log(requests.distanceIsochrone.polyline);
+        // console.log(requests.timeIsochrone.polyline);
+        console.log(requests.trip.route.travelTime);
+        var usefulCoordinate = compare.compareApiResults(requests.trip.route.polyline, requests.trip.distanceIsochrone.polyline, requests.trip.timeIsochrone.polyline, requests.trip.wayPoints[requests.trip.wayPoints.length - 1]);
+        //console.log('usefulCoordinate', usefulCoordinate);
+        requests.trip.wayPoints.push(usefulCoordinate);
+        console.log('requests.trip.wayPoints', requests.trip.wayPoints);
+        myLoop(requests, newTrip)
+        clearInterval(loopPolylineCheck);
+      }
+    } else if (requests.trip.route != undefined && requests.trip.route.error == true) {
+      console.log('route request failure');
+      console.log(requests.trip.route.message);
+      clearInterval(loopPolylineCheck);
+    } else if (requests.trip.distanceIsochrone != undefined && requests.trip.distanceIsochrone.error == true) {
+      console.log('distanceIsochrone request failure');
+      console.log(requests.trip.distanceIsochrone.message);
+      clearInterval(loopPolylineCheck);
+    } else if (requests.trip.timeIsochrone != undefined && requests.trip.timeIsochrone.error == true) {
+      console.log('timeIsochrone request failure');
+      console.log(requests.trip.timeIsochrone.message);
+      clearInterval(loopPolylineCheck);
+    }
+    else if(loop2 > 30){
+      console.log("api failure");
+      clearInterval(loopPolylineCheck);
+    }
+  }, 1000)
 }
 
 function firstConnectionToApi(newTrip){
@@ -75,7 +134,7 @@ function firstConnectionToApi(newTrip){
 
 function getDistancePolyline(origin) {
   console.log('ditance polyline');
-  //console.log(origin);
+  console.log(origin);
   var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=distance&range=60&units=mi&location_type=start&attributes=reachfactor&intersections=false&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
   var requestUrl = new URL(apiRequest)
   https.get(apiRequest, function(res){
@@ -126,7 +185,7 @@ function getDistancePolyline(origin) {
 
 function getTimePolyline(origin){
   console.log('time polyline');
-  //console.log(origin);
+  console.log(origin);
   var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=time&range=3600&location_type=start&attributes=area&intersections=false&id=1&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
   var requestUrl = new URL(apiRequest)
   https.get(apiRequest, function(res){

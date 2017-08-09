@@ -1,7 +1,8 @@
 var compare = {};
-compare.compareApiResults = function(arrayA, arrayB, arrayC){
+compare.compareApiResults = function(arrayA, arrayB, arrayC, lastOrigin){
   compare.matches = [];
   compare.matchesPair = [];
+  console.log('lastOrigin: ', lastOrigin);
   var i = arrayA.length;
   while (i--) {
     var j = arrayB.length;
@@ -40,7 +41,7 @@ compare.compareApiResults = function(arrayA, arrayB, arrayC){
   if (compare.matches == []) {
     console.log(error);
   } else {
-    var usefulCoordinate = compare.findBestPoint(compare.matches, compare.matchesPair);
+    var usefulCoordinate = compare.findBestPoint(compare.matches, compare.matchesPair, lastOrigin);
     //console.log(usefulCoordinate);
     return usefulCoordinate
   }
@@ -48,22 +49,23 @@ compare.compareApiResults = function(arrayA, arrayB, arrayC){
   //console.log(compare.matchesPair.length, compare.matchesPair);
 } // end of compare
 
-compare.findBestPoint = function(matches, matchesPair){
+compare.findBestPoint = function(matches, matchesPair, lastOrigin){
     //console.log(matches);
     //console.log(matchesPair);
+    console.log(lastOrigin);
     var ml = matches.length;
     var mpl = matchesPair.length;
     for(var i = 0; i < ml; i ++){
       var matchesAtI = matches[i];
       for (var j = 0; j < mpl; j++) {
         var matchesPairAtJ = matchesPair[j];
-        if(matchesAtI[0] - matchesPairAtJ[0] < .002 && matchesAtI[0] - matchesPairAtJ[0] > (-.002)){
-          if (matchesAtI[1] - matchesPairAtJ[1] < .002 && matchesAtI[1] - matchesPairAtJ[1] > (-.002)) {
+        if(matchesAtI[0] - matchesPairAtJ[0] < .002 && matchesAtI[0] - matchesPairAtJ[0] > (-.002) && !(matchesAtI[0] < lastOrigin[0] - .02 && matchesAtI[0] > lastOrigin[0] + .02)){
+          if (matchesAtI[1] - matchesPairAtJ[1] < .002 && matchesAtI[1] - matchesPairAtJ[1] > (-.002) && !(matchesAtI[1] < lastOrigin[1] - .02 && matchesAtI[1] > lastOrigin[1] + .02)) {
             // console.log(matchesAtI[0] - matchesPairAtJ[0]);
             // console.log(matchesAtI[1] - matchesPairAtJ[1]);
             var usefulCoordinate = matchesAtI;
             // console.log(compare.trip.usefulCoordinate);
-            console.log('best match found');
+            console.log('best match found', usefulCoordinate);
             return usefulCoordinate;
           }
         }

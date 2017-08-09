@@ -4,18 +4,28 @@ var compare = require('./map.comparisons.js');
 //var compare = require('map.comparisons.js');
 
 var i;
+var wayPoints = [];
 
 var requests = {
   newTrip: function(newTrip) {
     //console.log(newTrip);
     getFirstPolylines(newTrip);
     firstConnectionToApi(newTrip);
-    //res.sendStatus(200);
+    var checkTrip = setInterval(function(){
+      if (requests.trip.complete == true) {
+        console.log("completed check");
+        //console.log(requests.trip);
+        clearInterval(checkTrip);
+        return requests.trip;
+      }
+    }, 1000)
   }
 };
 
 function getFirstPolylines(newTrip) {
-  requests.trip = {};
+  requests.trip = {
+    complete: false
+  };
   requests.trip.wayPoints = [newTrip.origin];
   var loop = 0;
   var checkApi = setInterval(function(){
@@ -82,6 +92,7 @@ function myLoop(requests, newTrip){
     requests.trip.wayPoints.push(newTrip.destination);
     console.log(requests.trip.wayPoints);
     console.log(requests.trip.wayPoints.length);
+    requests.trip.complete = true;
   }
   i++
 }
@@ -136,7 +147,6 @@ function getDistancePolyline(origin) {
   console.log('ditance polyline');
   console.log(origin);
   var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=distance&range=60&units=mi&location_type=start&attributes=reachfactor&intersections=false&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
-  var requestUrl = new URL(apiRequest)
   https.get(apiRequest, function(res){
     var { statusCode } = res;
     var contentType = res.headers['content-type'];
@@ -280,7 +290,7 @@ function getRouteDetails(trip) {
         var remainder = remainderInMinutes / 60;
         console.log('timeInHours', timeInHours);
         console.log('remainder', remainder);
-        requests.trip.route = {error: false, polyline: parsedData.routes[0].geometry.coordinates, routeDetails: parsedData, travelTime: timeInHours};
+        requests.trip.route = {durationInHours: travelTime, error: false, polyline: parsedData.routes[0].geometry.coordinates, routeDetails: parsedData, travelTime: timeInHours};
         // compare.compareApiResults();
       } catch (e) {
         console.error(e.message);

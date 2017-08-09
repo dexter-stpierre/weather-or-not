@@ -17,10 +17,14 @@
     "bootstrap": "^3.3.5",
     "express": "^4.13.1",
     "express-session": "^1.13.0",
+    "http": "0.0.0",
+    "https": "^1.0.0",
     "jquery": "^2.1.4",
     "mongoose": "^4.4.6",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
-    "path": "^0.11.14"
+    "path": "^0.11.14",
+    "url": "^0.11.0",
+    "when": "^3.7.8"
   }
 }

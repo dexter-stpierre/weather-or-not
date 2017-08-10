@@ -8,7 +8,7 @@ var wayPoints = [];
 
 var requests = {
   newTrip: function(newTrip) {
-    //console.log(newTrip);
+    console.log(newTrip);
     getFirstPolylines(newTrip);
     firstConnectionToApi(newTrip);
     var checkTrip = setInterval(function(){
@@ -258,6 +258,7 @@ function getRouteDetails(trip) {
   console.log('route');
   var origin = trip.origin;
   var destination = trip.destination;
+  console.log(origin, destination);
   var apiRequest = 'https://api.openrouteservice.org/directions?coordinates=' + trip.origin[0] + '%2C%20' + trip.origin[1] + '|' + trip.destination[0] + '%2C%20' + trip.destination[1] + '&profile=driving-car&preference=fastest&units=mi&language=en&geometry=true&geometry_format=geojson&geometry_simplify=false&instructions=true&instructions_format=text&elevation=false&options=%7B%7D&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
   var requestUrl = new URL(apiRequest)
   https.get(apiRequest, function(res){

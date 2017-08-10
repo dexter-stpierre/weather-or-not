@@ -1,10 +1,10 @@
-var myApp = angular.module('myApp', ['ngRoute']);
+var myApp = angular.module('myApp', ['ngRoute', 'ngPlacesAutocomplete']);
 
-/// Routes ///
-myApp.config(function($routeProvider, $locationProvider) {
-  $locationProvider.hashPrefix('');
-  console.log('myApp -- config')
-  $routeProvider
+  /// Routes ///
+  myApp.config(function($routeProvider, $locationProvider) {
+    $locationProvider.hashPrefix('');
+    console.log('myApp -- config')
+    $routeProvider
     .when('/login', {
       templateUrl: '/views/templates/login.html',
       controller: 'LoginController as lc',
@@ -29,4 +29,4 @@ myApp.config(function($routeProvider, $locationProvider) {
     .otherwise({
       redirectTo: 'home'
     });
-});
+  });

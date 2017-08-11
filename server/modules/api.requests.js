@@ -2,6 +2,7 @@
 var https = require('https');
 var {URL} = require('url');
 var compare = require('./map.comparisons.js');
+var openRoute = require('../api-keys/open-route-services-api.js');
 
 //define global variables
 var i;

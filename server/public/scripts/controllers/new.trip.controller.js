@@ -3,9 +3,6 @@ myApp.controller('NewTripController', function(UserService, $http, $scope) {
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
-  //move to git ignored file
-  vm.YOUR_API_KEY = 'AIzaSyANtN7zXwqEGAIwJjpy5vPKDcpsrvtCFm4';
-  // defines the new trip object
   vm.newTrip = {};
   // prepares newTrip object and sends to server
   vm.submitNewTrip = function(newTrip) {

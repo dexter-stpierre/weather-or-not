@@ -34,7 +34,8 @@ router.post('/newtrip', function(req, res) {
           destination: finishedTrip.route.routeDetails.info.query.coordinates[1],
           units: finishedTrip.route.routeDetails.info.query.units
         },
-        wayPoints: finishedTrip.wayPoints
+        wayPoints: finishedTrip.wayPoints,
+        weather: finishedTrip.weather
       }
       //sends trip details
       res.send(tripToSend);

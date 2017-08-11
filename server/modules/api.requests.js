@@ -178,7 +178,7 @@ function getDistancePolyline(origin) {
   console.log('ditance polyline');
   console.log(origin);
   //defines the api request
-  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=distance&range=60&units=mi&location_type=start&attributes=reachfactor&intersections=false&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
+  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=distance&range=60&units=mi&location_type=start&attributes=reachfactor&intersections=false&api_key=' + openRoute.key;
   //makes the api request for the distance polyline
   https.get(apiRequest, function(res){
     // sets the status code and contentType to variables so that it can check for success and proper format
@@ -243,7 +243,7 @@ function getTimePolyline(origin){
   console.log('time polyline');
   console.log(origin);
   // sets the api request
-  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=time&range=3600&location_type=start&attributes=area&intersections=false&id=1&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
+  var apiRequest = 'https://api.openrouteservice.org/isochrones?locations=' + origin[0] + '%2C%20' + origin[1] + '&profile=driving-car&range_type=time&range=3600&location_type=start&attributes=area&intersections=false&id=1&api_key=' + openRoute.key;
   //makes the request to the api for the timepolyline
   https.get(apiRequest, function(res){
     //sets the statusCode and contentType to variables for error checks
@@ -314,7 +314,7 @@ function getRouteDetails(trip) {
   var origin = trip.origin;
   var destination = trip.destination;
   console.log(origin, destination);
-  var apiRequest = 'https://api.openrouteservice.org/directions?coordinates=' + trip.origin[0] + '%2C%20' + trip.origin[1] + '|' + trip.destination[0] + '%2C%20' + trip.destination[1] + '&profile=driving-car&preference=fastest&units=mi&language=en&geometry=true&geometry_format=geojson&geometry_simplify=false&instructions=true&instructions_format=text&elevation=false&options=%7B%7D&api_key=58d904a497c67e00015b45fc53fc79a8d4d54f1553a173972136a622';
+  var apiRequest = 'https://api.openrouteservice.org/directions?coordinates=' + trip.origin[0] + '%2C%20' + trip.origin[1] + '|' + trip.destination[0] + '%2C%20' + trip.destination[1] + '&profile=driving-car&preference=fastest&units=mi&language=en&geometry=true&geometry_format=geojson&geometry_simplify=false&instructions=true&instructions_format=text&elevation=false&options=%7B%7D&api_key=' + openRoute.key;
   //make api request for the route
   https.get(apiRequest, function(res){
     //sets the statusCode and contentType to variables for error checks

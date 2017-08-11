@@ -2,6 +2,7 @@
 var https = require('https');
 var compare = require('./map.comparisons.js');
 var openRoute = require('../api-keys/open-route-services-api.js');
+var weather = require('./weather-api-requests.js')
 
 //define global variables
 var i;
@@ -117,7 +118,7 @@ function myLoop(requests, newTrip){
     console.log(requests.trip.wayPoints);
     console.log(requests.trip.wayPoints.length);
     //sets the trip to complete so that the response will be sent
-    requests.trip.complete = true;
+    weather.getWeather(requests.trip);
   }
 }
 
@@ -142,7 +143,7 @@ function getLoopPolylines(newTrip){
         //console.log('usefulCoordinate', usefulCoordinate);
         requests.trip.wayPoints.push(usefulCoordinate);
         console.log('requests.trip.wayPoints', requests.trip.wayPoints);
-        myLoop(requests, newTrip)
+        myLoop(requests, newTrip);
         clearInterval(loopPolylineCheck);
       }
     }

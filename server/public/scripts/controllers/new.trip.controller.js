@@ -7,10 +7,10 @@ myApp.controller('NewTripController', function(UserService, $http, $scope) {
   vm.newTrip = {};
   vm.submitNewTrip = function(newTrip) {
     console.log(newTrip);
-    var originAddressY = newTrip.originDetails.geometry.viewport.b.b.toFixed(6);
-    var originAddressX = newTrip.originDetails.geometry.viewport.f.f.toFixed(6);
-    var destinationAddressY = newTrip.destinationDetails.geometry.viewport.b.b.toFixed(6);
-    var destinationAddressX = newTrip.destinationDetails.geometry.viewport.f.f.toFixed(6);
+    var originAddressY = newTrip.originDetails.geometry.viewport.b.b.toPrecision(6);
+    var originAddressX = newTrip.originDetails.geometry.viewport.f.f.toPrecision(6);
+    var destinationAddressY = newTrip.destinationDetails.geometry.viewport.b.b.toPrecision(6);
+    var destinationAddressX = newTrip.destinationDetails.geometry.viewport.f.f.toPrecision(6);
     var tripToSend = {
       originAddress: newTrip.originAddress,
       destinationAddress: newTrip.destinationAddress,
@@ -20,7 +20,11 @@ myApp.controller('NewTripController', function(UserService, $http, $scope) {
       destination: [destinationAddressY, destinationAddressX],
     }
     console.log(tripToSend);
-    $http.post('/trips/newtrip', tripToSend).then(function(response){
+    var postConfig = {
+      timeout: 600000
+    }
+    console.log(postConfig);
+    $http.post('/trips/newtrip', tripToSend, postConfig).then(function(response){
       console.log(response);
     })
   }

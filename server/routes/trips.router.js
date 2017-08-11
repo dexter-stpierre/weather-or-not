@@ -6,10 +6,14 @@ var requests = require('../modules/api.requests.js');
 var compare = require('../modules/map.comparisons.js');
 
 router.post('/newtrip', function(req, res) {
+  res.setTimeout(600000, function(){
+    console.log('request timed out');
+    res.send(408);
+  })
   var trip = {};
   console.log(req.body);
   newTrip = req.body;
-  trip = requests.newTrip(newTrip);
+  requests.newTrip(newTrip);
   var checkRequest = setInterval(function(){
     finishedTrip = requests.trip;
     console.log(requests.trip.complete);

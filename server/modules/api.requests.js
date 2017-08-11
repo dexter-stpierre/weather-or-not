@@ -1,16 +1,22 @@
+//requires
 var https = require('https');
 var {URL} = require('url');
 var compare = require('./map.comparisons.js');
-//var compare = require('map.comparisons.js');
 
+//define global variables
 var i;
 var wayPoints = [];
 
+//Create module object
 var requests = {
+  //funtion to create the trip to send to client
   newTrip: function(newTrip) {
     console.log(newTrip);
+    //gets the first set of polylines (needs special function because route only needs to be requested once)
     getFirstPolylines(newTrip);
+    //ensures
     firstConnectionToApi(newTrip);
+    //interval that checks to see if the request is finished
     var checkTrip = setInterval(function(){
       if (requests.trip.complete == true) {
         console.log("completed check");
@@ -22,34 +28,42 @@ var requests = {
   }
 };
 
+//function to get the first isochrone polylines and the route
 function getFirstPolylines(newTrip) {
+  //creates a trip with a property of complete that equals false to prevent res.send from running early and waypoints to an array with the origin coordinate
   requests.trip = {
-    complete: false
+    complete: false,
+    wayPoints: [newTrip.origin]
   };
-  requests.trip.wayPoints = [newTrip.origin];
+  // resets loop to 0 for the timeout for the api calls
   var loop = 0;
+  //set interval to check if first round of api calls are complete
   var checkApi = setInterval(function(){
+    //add one to loop for timeout
     loop ++;
     console.log('interval');
+    //check if route exists and if it had no error
     if(requests.trip.route != undefined && requests.trip.route.error == false){
+      //check if distanceIsochrone exists and if it had no error
       if(requests.trip.distanceIsochrone != undefined && requests.trip.distanceIsochrone.error == false){
+        //check if timeIsochrone exists and if it had no error
         if(requests.trip.timeIsochrone != undefined && requests.trip.timeIsochrone.error == false){
+          //if all three are done this function will run
           console.log('api request complete');
-          // console.log(requests.route.polyline);
-          // console.log(requests.distanceIsochrone.polyline);
-          // console.log(requests.timeIsochrone.polyline);
           console.log(requests.trip.route.travelTime);
-          //var usefulCoordinate = compare.compareApiResults(requests.trip.route.polyline, requests.trip.distanceIsochrone.polyline, requests.trip.timeIsochrone.polyline);
-          //console.log('usefulCoordinate', usefulCoordinate);
-          //requests.trip.wayPoints.push(usefulCoordinate);
           console.log('requests.trip.wayPoints', requests.trip.wayPoints);
+          //reset i for the loop
           i = 0;
+          // run a custom loop that finds all of the way points needed
           myLoop(requests,newTrip)
           console.log('requests.trip.wayPoints', requests.trip.wayPoints);
+          //clear the interval
           clearInterval(checkApi);
         }
       }
-    } else if (requests.trip.route != undefined && requests.trip.route.error == true) {
+    }
+    //error handling 
+    else if (requests.trip.route != undefined && requests.trip.route.error == true) {
       console.log('route request failure');
       console.log(requests.trip.route.message);
       clearInterval(checkApi);

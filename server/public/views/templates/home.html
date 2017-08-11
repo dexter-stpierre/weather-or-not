@@ -4,10 +4,17 @@
   <div id="new-trip">
     <form class="new-trip-form" ng-submit="ntc.submitNewTrip(ntc.newTrip)">
       <div id="locationField">
-        <input class="autocompleteFormat" ng-model="ntc.newTrip.originAddress" ng-places-autocomplete pa-options="ntc.options" pa-on-place-ready="ntc.setOrigin" id="autocomplete" placeholder="Enter your address" onFocus="geolocate()" type="text"></input>
+        <input class="autocompleteFormat"
+          ng-model="ntc.newTrip.originAddress" ng-places-autocomplete
+          pa-options="ntc.options" pa-on-place-ready="ntc.setOrigin"
+          id="autocomplete" placeholder="Enter your address"
+          onFocus="geolocate()" type="text">
       </div>
       <div id="locationField">
-        <input class="autocompleteFormat" ng-model="ntc.newTrip.destinationAddress" ng-places-autocomplete pa-options="ntc.options" pa-on-place-ready="ntc.setDestination" onFocus="geolocate()" id="autocomplete2" placeholder="Enter your address" type="text"></input>
+        <input class="autocompleteFormat" ng-model="ntc.newTrip.destinationAddress"
+          ng-places-autocomplete pa-options="ntc.options" pa-on-place-ready="ntc.setDestination"
+          onFocus="geolocate()" id="autocomplete2"
+          placeholder="Enter your address" type="text">
       </div>
 
       <!-- <label>Origin</label>
@@ -19,7 +26,6 @@
       <input type="time" ng-model="ntc.newTrip.departure.time"> -->
       <button type="reset">Reset</button>
       <button type="submit">Submit</button>
-      <button type="button" ng-click="ntc.logNewTrip()"></button>
     </form>
   </div>
 </div>

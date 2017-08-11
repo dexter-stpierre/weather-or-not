@@ -46,14 +46,14 @@ compare.compareApiResults = function(arrayA, arrayB, arrayC, lastOrigin){
     return 'error'
   } else {
     // checks for closest match
-    var usefulCoordinate = compare.findBestPoint(compare.matches, compare.matchesPair, lastOrigin);
+    var usefulCoordinate = compare.filterCoordinates(compare.matches, compare.matchesPair, lastOrigin);
     // returns good coordinate
     return usefulCoordinate
   }
 } // end of compare
 
 //checks for best matching point
-compare.findBestPoint = function(matches, matchesPair, lastOrigin){
+compare.filterCoordinates = function(matches, matchesPair, lastOrigin){
     console.log(lastOrigin);
     var ml = matches.length;
     var mpl = matchesPair.length;

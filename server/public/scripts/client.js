@@ -17,6 +17,10 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngPlacesAutocomplete']);
       templateUrl: '/views/templates/home.html',
       controller: 'NewTripController as ntc',
     })
+    .when('/viewtrip', {
+      templateUrl: '/views/templates/view.trip.html',
+      controller: 'ViewTripController as vtc',
+    })
     .when('/info', {
       templateUrl: '/views/templates/info.html',
       controller: 'InfoController',

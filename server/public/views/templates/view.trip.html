@@ -1,0 +1,22 @@
+<div>
+  <table>
+    <thead>
+      <th>Time</th>
+      <th>Location</th>
+      <th>Temp</th>
+      <th>Feels Like</th>
+      <th>Conditions</th>
+      <th>Humidity</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="waypoint in vtc.trip.weather">
+        <td>{{ vtc.trip.times[$index].hours }}:{{ vtc.trip.times[$index].minutes }}</td>
+        <td>{{ waypoint.weatherData.location.name }}</td>
+        <td>{{ waypoint.weatherData.forecast.forecastday[vtc.trip.departure.daysUntilDeparture].hour[vtc.trip.times[$index].hours].feelslike_f }}°</td>
+        <td>{{ waypoint.weatherData.forecast.forecastday[vtc.trip.departure.daysUntilDeparture].hour[vtc.trip.times[$index].hours].temp_f }}°</td>
+        <td><img ng-src="https:{{waypoint.weatherData.forecast.forecastday[vtc.trip.departure.daysUntilDeparture].hour[vtc.trip.times[$index].hours].condition.icon}}" alt="{{waypoint.weatherData.forecast.forecastday[vtc.trip.departure.daysUntilDeparture].hour[vtc.trip.times[$index].hours].condition.text}}"></td>
+        <td>{{ waypoint.weatherData.forecast.forecastday[vtc.trip.departure.daysUntilDeparture].hour[vtc.trip.times[$index].hours].humidity }}%</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -2,8 +2,9 @@
   <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
   <link rel="stylesheet" href="styles/autocomplete.css">
   <div id="new-trip">
-    <form class="new-trip-form" ng-submit="ntc.submitNewTrip(ntc.newTrip)">
+    <form class="new-trip-form" ng-submit="ntc.newTripService.submitNewTrip(ntc.newTrip)">
       <div id="locationField">
+        <label>Origin</label>
         <input class="autocompleteFormat"
           ng-model="ntc.newTrip.originAddress" ng-places-autocomplete
           pa-options="ntc.options" pa-on-place-ready="ntc.setOrigin"
@@ -11,19 +12,15 @@
           onFocus="geolocate()" type="text">
       </div>
       <div id="locationField">
+        <label>destination</label>
         <input class="autocompleteFormat" ng-model="ntc.newTrip.destinationAddress"
           ng-places-autocomplete pa-options="ntc.options" pa-on-place-ready="ntc.setDestination"
           onFocus="geolocate()" id="autocomplete2"
           placeholder="Enter your address" type="text">
       </div>
-
-      <!-- <label>Origin</label>
-      <input type="text" ng-model="ntc.newTrip.origin" placeholder="address or city, state">
-      <label>Destination</label>
-      <input type="text" ng-model="ntc.newTrip.destination" placeholder="address or city, state">
       <label>Time of Departure</label>
       <input type="date" ng-model="ntc.newTrip.departure.date">
-      <input type="time" ng-model="ntc.newTrip.departure.time"> -->
+      <input type="time" ng-model="ntc.newTrip.departure.time"> 
       <button type="reset">Reset</button>
       <button type="submit">Submit</button>
     </form>

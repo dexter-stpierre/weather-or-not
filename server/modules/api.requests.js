@@ -34,7 +34,8 @@ function getFirstPolylines(newTrip) {
   //creates a trip with a property of complete that equals false to prevent res.send from running early and waypoints to an array with the origin coordinate
   requests.trip = {
     complete: false,
-    wayPoints: [newTrip.origin]
+    wayPoints: [newTrip.origin],
+    departure: newTrip.departure
   };
   // resets loop to 0 for the timeout for the api calls
   var loop = 0;
@@ -374,7 +375,8 @@ function getRouteDetails(trip) {
           error: false,
           polyline: parsedData.routes[0].geometry.coordinates,
           routeDetails: parsedData,
-          travelTime: timeInHours
+          travelTime: timeInHours,
+          remainder: remainderInMinutes
         };
       }
       //error handling

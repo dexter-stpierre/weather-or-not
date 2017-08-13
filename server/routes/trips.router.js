@@ -28,14 +28,15 @@ router.post('/newtrip', function(req, res) {
       var tripToSend = {
         route: {
           distance: finishedTrip.route.routeDetails.routes[0].summary.distance,
-          duration: finishedTrip.route.durationInHours,
+          duration: {totalDuration: finishedTrip.route.durationInHours, hours: finishedTrip.route.travelTime, leftoverMinutes: finishedTrip.route.remainder},
           directions: finishedTrip.route.routeDetails.routes[0].segments[0].steps,
           origin: finishedTrip.route.routeDetails.info.query.coordinates[0],
           destination: finishedTrip.route.routeDetails.info.query.coordinates[1],
           units: finishedTrip.route.routeDetails.info.query.units
         },
         wayPoints: finishedTrip.wayPoints,
-        weather: finishedTrip.weather
+        weather: finishedTrip.weather,
+        departure: finishedTrip.departure
       }
       //sends trip details
       res.send(tripToSend);

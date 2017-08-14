@@ -1,0 +1,17 @@
+<div class="">
+  <table>
+    <thead>
+      <th>Origin</th>
+      <th>Destination</th>
+      <th>Date/time of departure</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="trip in uc.userObject.trips">
+        <td>{{trip.route.originAddress}}</td>
+        <td>{{trip.route.destinationAddress}}</td>
+        <td>{{trip.departure.date | date}} {{trip.departure.time.hours}}:{{trip.departure.time.minutes}}</td>
+        <td><button ng-click="uc.tripService.viewTrip(trip)">View</button></td>
+      </tr>
+    </tbody>
+  </table>
+</div>

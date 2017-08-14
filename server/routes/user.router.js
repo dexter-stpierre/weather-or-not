@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var User = require('../models/user.js')
 
 // Handles Ajax request for user information if user is authenticated
 router.get('/', function(req, res) {
@@ -9,7 +10,8 @@ router.get('/', function(req, res) {
     // send back user object from database
     console.log('logged in', req.user);
     var userInfo = {
-      username : req.user.username
+      username : req.user.username,
+      trips: req.user.trips
     };
     res.send(userInfo);
   } else {
@@ -28,5 +30,32 @@ router.get('/logout', function(req, res) {
   res.sendStatus(200);
 });
 
+//save trip
+router.put('/saveNewTrip', function(req, res){
+  //console.log(req.body);
+  var newTrip = req.body;
+  if(req.isAuthenticated()) {
+    // send back user object from database
+    console.log('logged in', req.user);
+    User.findById(
+      req.user._id,
+      function(err, user) {
+      if(err) {
+        res.send(false);
+      } else {
+        user.trips.push(newTrip);
+        user.save(function(err){
+          if(err) {
+            res.send(false);
+          } else {
+            res.sendStatus(200);
+          }
+        })
+      }
+  })
+  //res.sendStatus(200)
+}else{
+  res.send('not logged in')
+}})
 
 module.exports = router;

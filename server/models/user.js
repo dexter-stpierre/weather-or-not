@@ -4,9 +4,36 @@ var bcrypt = require('bcrypt');
 var SALT_WORK_FACTOR = 10;
 
 // Mongoose Schema
+
+var TripSchema = new Schema({
+  route: {
+    destination: [],
+    destinationAddress: String,
+    originAddress: String,
+    directions: [],
+    distance: Number,
+    duration: {
+      hours: Number,
+      leftoverMinutes: Number,
+      totalDuration: Number
+    },
+    origin: []
+  },
+  wayPoints: [],
+  departure: {
+    time: {
+      hours: Number,
+      minutes: String
+    },
+    date: String
+  },
+  times: []
+});
+
 var UserSchema = new Schema({
-    username: {type: String, required: true, index: {unique: true}},
-    password: {type: String, required: true}
+  username: {type: String, required: true, index: {unique: true}},
+  password: {type: String, required: true},
+  trips: [/*TripSchema*/]
 });
 
 // Called before adding a new user to the DB. Encrypts password.
@@ -44,6 +71,5 @@ UserSchema.methods.comparePassword = function(candidatePassword, callback) {
         callback(null, isMatch);
     });
 };
-
 
 module.exports = mongoose.model('User', UserSchema);

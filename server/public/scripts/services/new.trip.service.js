@@ -1,6 +1,6 @@
-myApp.factory('NewTrip', function($http, $location){
-  console.log('NewTripService Loaded');
-  var newTripService = {
+myApp.factory('Trip', function($http, $location){
+  console.log('TripService Loaded');
+  var TripService = {
     submitNewTrip: function(newTrip) {
       console.log(newTrip);
       // gets origin and destination coordinates and prepares them to go into object
@@ -27,36 +27,51 @@ myApp.factory('NewTrip', function($http, $location){
       //makes post request to server
       $http.post('/trips/newtrip', tripToSend, postConfig).then(function(response){
         console.log(response);
-        newTripService.trip = response.data;
+        TripService.newTrip = response.data;
         var today = new Date();
         var todayMs = Date.parse(today)
         console.log(todayMs);
-        departureDate = Date.parse(newTripService.trip.departure.date);
+        departureDate = Date.parse(TripService.newTrip.departure.date);
         console.log(departureDate);
         console.log(departureDate + 864000000);
         if(departureDate > todayMs && departureDate < todayMs + 864000000){
           console.log('in range');
           var daysUntilDeparture = Math.ceil((departureDate - today) / 86400000);
           console.log(daysUntilDeparture);
-          newTripService.trip.departure.daysUntilDeparture = daysUntilDeparture;
+          TripService.newTrip.departure.daysUntilDeparture = daysUntilDeparture;
         }else{
           console.log('out of range');
         }
-        var time = new Date(newTripService.trip.departure.time);
-        newTripService.trip.departure.time= {};
-        newTripService.trip.departure.time.hours = addZero(time.getHours());
-        newTripService.trip.departure.time.minutes = addZero(Math.round(time.getMinutes()));
-        var departureHours = newTripService.trip.departure.time.hours
-        var times = [{hours: departureHours, minutes: newTripService.trip.departure.time.minutes}];
-        while(times.length < newTripService.trip.weather.length - 1) {
+        var time = new Date(TripService.newTrip.departure.time);
+        TripService.newTrip.departure.time= {};
+        TripService.newTrip.departure.time.hours = addZero(time.getHours());
+        TripService.newTrip.departure.time.minutes = addZero(Math.round(time.getMinutes()));
+        var departureHours = TripService.newTrip.departure.time.hours
+        var times = [{hours: departureHours, minutes: TripService.newTrip.departure.time.minutes, daysUntilDeparture: daysUntilDeparture}];
+        while(times.length < TripService.newTrip.weather.length - 1) {
           departureHours += 1;
-          times.push({hours: departureHours, minutes: newTripService.trip.departure.time.minutes});
+          if (departureHours == 24) {
+            departureHours = 0;
+            daysUntilDeparture += 1;
+          }
+          if (TripService.newTrip.departure.time.minutes >= 60) {
+            TripService.newTrip.departure.time.minutes -= 60;
+            departureHours += 1;
+          }
+          times.push({hours: departureHours, minutes: TripService.newTrip.departure.time.minutes, daysUntilDeparture: daysUntilDeparture});
         }
-        times.push({hours: departureHours, minutes: addZero(Math.round(newTripService.trip.route.duration.leftoverMinutes))})
-        newTripService.trip.times = times;
-        console.log(newTripService.trip);
+        times.push({hours: departureHours, minutes: addZero(Math.round(TripService.newTrip.route.duration.leftoverMinutes)), daysUntilDeparture: daysUntilDeparture})
+        TripService.newTrip.times = times;
+        console.log(TripService.newTrip);
+        TripService.trip = TripService.newTrip;
         $location.path("/viewtrip");
       })
+    },
+
+    viewTrip: function(trip){
+      TripService.trip = trip;
+      console.log(TripService.trip);
+      $location.path("/viewtrip")
     }
   }
 
@@ -67,5 +82,5 @@ myApp.factory('NewTrip', function($http, $location){
       return time;
   }
 
-  return newTripService
+  return TripService
 });

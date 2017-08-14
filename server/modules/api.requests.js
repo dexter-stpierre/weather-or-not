@@ -35,7 +35,9 @@ function getFirstPolylines(newTrip) {
   requests.trip = {
     complete: false,
     wayPoints: [newTrip.origin],
-    departure: newTrip.departure
+    departure: newTrip.departure,
+    originAddress: newTrip.originAddress,
+    destinationAddress: newTrip.destinationAddress
   };
   // resets loop to 0 for the timeout for the api calls
   var loop = 0;

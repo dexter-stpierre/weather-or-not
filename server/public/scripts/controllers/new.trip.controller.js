@@ -1,10 +1,10 @@
-myApp.controller('NewTripController', function(UserService, $http, $scope, NewTrip, $location) {
+myApp.controller('NewTripController', function(UserService, $http, $scope, Trip, $location) {
   console.log('NewTripController created');
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
   vm.newTrip = {};
-  vm.newTripService = NewTrip;
+  vm.newTripService = Trip;
 
   // options for data binding with google places autocomplete
   vm.options = {

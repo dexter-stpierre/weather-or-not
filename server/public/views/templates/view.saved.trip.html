@@ -1,0 +1,26 @@
+<div>
+  <table>
+    <thead>
+      <th>Time</th>
+      <th>Location</th>
+      <th>Temp</th>
+      <th>Feels Like</th>
+      <th>Conditions</th>
+      <th>Humidity</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="waypoint in vtc.savedTrip.weather">
+        <td>{{ vtc.savedTrip.times[$index].hours }}:{{ vtc.savedTrip.times[$index].minutes }}</td>
+        <td>{{ waypoint.weatherData.location.name }}</td>
+        <td>{{ waypoint.weatherData.forecast.forecastday[vtc.savedTrip.times[$index].daysUntilDeparture].hour[vtc.savedTrip.times[$index].hours].feelslike_f }}°</td>
+        <td>{{ waypoint.weatherData.forecast.forecastday[vtc.savedTrip.times[$index].daysUntilDeparture].hour[vtc.savedTrip.times[$index].hours].temp_f }}°</td>
+        <td><img ng-src="https:{{waypoint.weatherData.forecast.forecastday[vtc.savedTrip.times[$index].daysUntilDeparture].hour[vtc.savedTrip.times[$index].hours].condition.icon}}"
+           alt="{{waypoint.weatherData.forecast.forecastday[vtc.savedTrip.times[$index].daysUntilDeparture].hour[vtc.savedTrip.times[$index].hours].condition.text}}">
+         </td>
+        <td>{{ waypoint.weatherData.forecast.forecastday[vtc.savedTrip.times[$index].daysUntilDeparture].hour[vtc.savedTrip.times[$index].hours].humidity }}%</td>
+      </tr>
+    </tbody>
+  </table>
+  <button ng-click="vtc.userService.saveTrip(vtc.trip)">Save trip</button>
+  <button class="btn btn-default" ng-click="vtc.userService.logout()">Log Out</button>
+</div>

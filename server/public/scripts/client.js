@@ -30,6 +30,15 @@ var myApp = angular.module('myApp', ['ngRoute', 'ngPlacesAutocomplete']);
         }
       }
     })
+    .when('/myTrips', {
+      templateUrl: '/views/templates/mytrips.html',
+      controller: 'UserController as uc',
+      resolve: {
+        getuser : function(UserService){
+          return UserService.getuser();
+        }
+      }
+    })
     .otherwise({
       redirectTo: 'home'
     });

@@ -24,9 +24,12 @@ router.post('/newtrip', function(req, res) {
     //if the trip is complete it will prepare object and send response
     if (finishedTrip.complete == true) {
       console.log('trip complete');
+      //console.log(finishedTrip);
       // prepares object to send to client
       var tripToSend = {
         route: {
+          destinationAddress: finishedTrip.destinationAddress,
+          originAddress: finishedTrip.originAddress,
           distance: finishedTrip.route.routeDetails.routes[0].summary.distance,
           duration: {totalDuration: finishedTrip.route.durationInHours, hours: finishedTrip.route.travelTime, leftoverMinutes: finishedTrip.route.remainder},
           directions: finishedTrip.route.routeDetails.routes[0].segments[0].steps,

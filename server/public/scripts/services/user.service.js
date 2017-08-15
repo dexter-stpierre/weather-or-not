@@ -37,7 +37,7 @@ myApp.factory('UserService', function($http, $location){
       var tripToSave = {
         route: trip.route,
         wayPoints: trip.wayPoints,
-        departure: {time: trip.departure.time, date: trip.departure.date},
+        departure: {time: trip.departure.time, date: trip.departure.date, timeDate: trip.departure.timeDate},
         times: trip.times
       }
       $http.put('/user/saveNewTrip', tripToSave).then(function(response){

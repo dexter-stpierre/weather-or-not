@@ -6,5 +6,4 @@ myApp.controller('ViewTripController', function(UserService, $http, Trip, $locat
   vm.TripService = Trip;
   vm.trip = Trip.trip
   console.log(vm.trip);
-  console.log(vm.savedTrip);
 });

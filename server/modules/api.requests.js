@@ -2,7 +2,7 @@
 var https = require('https');
 var compare = require('./map.comparisons.js');
 var openRoute = require('../api-keys/open-route-services-api.js');
-var weather = require('./weather-api-requests.js')
+var weather = require('./weather-api-requests.js');
 
 //define global variables
 var i;

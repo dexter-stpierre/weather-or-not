@@ -4,6 +4,7 @@ var router = express.Router();
 var passport = require('passport');
 var path = require('path');
 var requests = require('../modules/api.requests.js');
+var weather = require('../modules/weather-api-requests.js');
 
 //post route
 router.post('/newtrip', function(req, res) {
@@ -42,12 +43,69 @@ router.post('/newtrip', function(req, res) {
         departure: finishedTrip.departure
       }
       //sends trip details
+      console.log('trip to send', tripToSend);
       res.send(tripToSend);
       clearInterval(checkRequest)
     }
   }, 1000)
 });
 
+router.post('/viewSavedTrip', function(req, res){
+  console.log('viewSavedTrip', req.body);
+  weather.getWeather(req.body);
+  var checkRequest = setInterval(function(){
+    finishedTrip = req.body;
+    if (finishedTrip.complete == true) {
+      console.log('finishedTrip', finishedTrip);
+      var today = new Date();
+      var todayMs = Date.parse(today)
+      console.log(todayMs);
+      dDate = new Date(finishedTrip.departure.date);
+      departureDate = Date.parse(dDate);
+      console.log(departureDate);
+      console.log(departureDate + 864000000);
+      if(departureDate > todayMs && departureDate < todayMs + 864000000){
+        console.log('in range');
+        var daysUntilDeparture = Math.ceil((departureDate - today) / 86400000);
+        console.log(daysUntilDeparture);
+        finishedTrip.departure.daysUntilDeparture = daysUntilDeparture;
+      }else{
+        console.log('out of range');
+      }
+      console.log(finishedTrip.departure.timeDate);
+      var time = new Date(finishedTrip.departure.timeDate);
+      console.log(time);
+      finishedTrip.departure.time.hours = addZero(time.getHours());
+      finishedTrip.departure.time.minutes = addZero(Math.round(time.getMinutes()));
+      var departureHours = finishedTrip.departure.time.hours
+      var times = [{hours: departureHours, minutes: finishedTrip.departure.time.minutes, daysUntilDeparture: daysUntilDeparture}];
+      while(times.length < finishedTrip.weather.length - 1) {
+        departureHours += 1;
+        if (departureHours == 24) {
+          departureHours = 0;
+          daysUntilDeparture += 1;
+        }
+        if (finishedTrip.departure.time.minutes >= 60) {
+          finishedTrip.departure.time.minutes -= 60;
+          departureHours += 1;
+        }
+        times.push({hours: departureHours, minutes: finishedTrip.departure.time.minutes, daysUntilDeparture: daysUntilDeparture});
+      }
+      times.push({hours: departureHours, minutes: addZero(Math.round(finishedTrip.route.duration.leftoverMinutes)), daysUntilDeparture: daysUntilDeparture})
+      finishedTrip.times = times;
+      console.log('sending trip', finishedTrip);
+      res.send(finishedTrip);
+      clearInterval(checkRequest);
+    }
+  })
+});
+
+function addZero(time) {
+    if (time < 10) {
+        time = "0" + time;
+    }
+    return time;
+}
 
 //exports router
 module.exports = router;

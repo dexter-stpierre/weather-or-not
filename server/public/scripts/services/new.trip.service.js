@@ -42,7 +42,7 @@ myApp.factory('Trip', function($http, $location){
         }else{
           console.log('out of range');
         }
-        var time = new Date(TripService.newTrip.departure.time);
+        var time = new Date(TripService.newTrip.departure.timeDate);
         TripService.newTrip.departure.time= {};
         TripService.newTrip.departure.time.hours = addZero(time.getHours());
         TripService.newTrip.departure.time.minutes = addZero(Math.round(time.getMinutes()));
@@ -69,9 +69,16 @@ myApp.factory('Trip', function($http, $location){
     },
 
     viewTrip: function(trip){
-      TripService.trip = trip;
-      console.log(TripService.trip);
-      $location.path("/viewtrip")
+      console.log(trip);
+      $http.post('/trips/viewSavedTrip', trip).then(function(response){
+        console.log('response', response);
+        TripService.savedTrip = response.data;
+        console.log('saved trip', TripService.savedTrip);
+        TripService.trip = TripService.savedTrip;
+        $location.path("/viewtrip");
+      });/*.then(function(){
+      $location.path("/viewtrip");
+    })*/
     }
   }
 

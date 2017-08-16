@@ -1,5 +1,7 @@
-myApp.factory('Trip', function($http, $location){
+myApp.factory('Trip', function($http, $location, UserService){
   console.log('TripService Loaded');
+  var userService = UserService;
+  console.log(userService);
   var TripService = {
     submitNewTrip: function(newTrip) {
       console.log(newTrip);
@@ -76,9 +78,15 @@ myApp.factory('Trip', function($http, $location){
         console.log('saved trip', TripService.savedTrip);
         TripService.trip = TripService.savedTrip;
         $location.path("/viewtrip");
-      });/*.then(function(){
-      $location.path("/viewtrip");
-    })*/
+      });
+    },
+
+    deleteTrip: function(trip) {
+      console.log(trip);
+      $http.delete('/trips/' + trip._id).then(function(response){
+        console.log(response);
+        userService.getuser();
+      });
     }
   }
 

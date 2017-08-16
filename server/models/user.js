@@ -33,7 +33,7 @@ var TripSchema = new Schema({
 var UserSchema = new Schema({
   username: {type: String, required: true, index: {unique: true}},
   password: {type: String, required: true},
-  trips: [/*TripSchema*/]
+  trips: [TripSchema]
 });
 
 // Called before adding a new user to the DB. Encrypts password.

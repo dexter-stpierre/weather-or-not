@@ -5,6 +5,40 @@ var passport = require('passport');
 var path = require('path');
 var requests = require('../modules/api.requests.js');
 var weather = require('../modules/weather-api-requests.js');
+var User = require('../models/user.js');
+
+router.delete('/:id', function(req, res){
+  console.log(req.params.id);
+  var tripToDelete = req.params.id;
+  if(req.isAuthenticated()) {
+    // send back user object from database
+    console.log('logged in', req.user);
+    User.findByIdAndUpdate(req.user._id, {$pull: {trips: {_id: tripToDelete}}}, function(err, success){
+      if(err){
+        console.log(err);
+      } else{
+        console.log(success);
+        res.sendStatus(200);
+      }
+    });
+  } else {
+    // failure best handled on the server. do redirect here.
+    console.log('not logged in');
+    // should probably be res.sendStatus(403) and handled client-side, esp if this is an AJAX request (which is likely with AngularJS)
+    res.send(false);
+  }
+});
+
+// function(err, user){
+//   if(err) {
+//     res.sendStatus(500);
+//   } else {
+//     var deleteThisTrip = user.trips.id(tripToDelete);
+//     console.log(deleteThisTrip);
+//     user.trips
+//     res.send(200);
+//   }
+// }
 
 //post route
 router.post('/newtrip', function(req, res) {

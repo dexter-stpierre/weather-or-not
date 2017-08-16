@@ -108,7 +108,7 @@ router.post('/viewSavedTrip', function(req, res){
       }
       console.log(finishedTrip.departure.timeDate);
       var time = new Date(finishedTrip.departure.timeDate);
-      console.log(time);
+      console.log('time', time);
       finishedTrip.departure.time.hours = addZero(time.getHours());
       finishedTrip.departure.time.minutes = addZero(Math.round(time.getMinutes()));
       var departureHours = finishedTrip.departure.time.hours

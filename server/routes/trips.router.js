@@ -106,7 +106,7 @@ router.post('/viewSavedTrip', function(req, res){
       }else{
         console.log('out of range');
       }
-      console.log(finishedTrip.departure.timeDate);
+      console.log('time date', finishedTrip.departure.timeDate);
       var time = new Date(finishedTrip.departure.timeDate);
       console.log(time);
       finishedTrip.departure.time.hours = addZero(time.getHours());

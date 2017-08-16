@@ -25,7 +25,8 @@ var TripSchema = new Schema({
       hours: Number,
       minutes: String
     },
-    date: String
+    date: String,
+    timeDate: String
   },
   times: []
 });

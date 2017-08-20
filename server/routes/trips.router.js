@@ -63,6 +63,8 @@ router.post('/newtrip', function(req, res) {
       // prepares object to send to client
       var tripToSend = {
         route: {
+          originCity: finishedTrip.originCity,
+          destinationCity:finishedTrip.destinationCity,
           destinationAddress: finishedTrip.destinationAddress,
           originAddress: finishedTrip.originAddress,
           distance: finishedTrip.route.routeDetails.routes[0].summary.distance,

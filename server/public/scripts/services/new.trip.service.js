@@ -12,13 +12,18 @@ myApp.factory('Trip', function($http, $location, UserService){
       var destinationAddressX = newTrip.destinationDetails.geometry.viewport.f.f.toPrecision(6);
       //prepares object to send to server
       var tripToSend = {
+        originCity: newTrip.originCity,
+        destinationCity: newTrip.destinationCity,
         originAddress: newTrip.originAddress,
         destinationAddress: newTrip.destinationAddress,
         originDetails: newTrip.originDetails,
         destinationDetails: newTrip.destinationDetails,
         origin: [originAddressY, originAddressX],
         destination: [destinationAddressY, destinationAddressX],
-        departure: newTrip.departure
+        departure: {
+          date: newTrip.departure.date,
+          timeDate: newTrip.departure.timeDate
+        }
       }
       console.log(tripToSend);
       // sets 10 minute timeout for request
@@ -26,6 +31,7 @@ myApp.factory('Trip', function($http, $location, UserService){
         timeout: 600000
       }
       console.log(postConfig);
+      TripService.calculatingResults = true;
       //makes post request to server
       $http.post('/trips/newtrip', tripToSend, postConfig).then(function(response){
         console.log(response);
@@ -66,17 +72,21 @@ myApp.factory('Trip', function($http, $location, UserService){
         TripService.newTrip.times = times;
         console.log(TripService.newTrip);
         TripService.trip = TripService.newTrip;
+        TripService.calculatingResults = false;
         $location.path("/viewtrip");
       })
     },
 
     viewTrip: function(trip){
       console.log(trip);
+      TripService.calculatingResults = true;
       $http.post('/trips/viewSavedTrip', trip).then(function(response){
         console.log('response', response);
         TripService.savedTrip = response.data;
         console.log('saved trip', TripService.savedTrip);
         TripService.trip = TripService.savedTrip;
+        TripService.trip.saved = true;
+        TripService.calculatingResults = false;
         $location.path("/viewtrip");
       });
     },

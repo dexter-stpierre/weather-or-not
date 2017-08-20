@@ -24,7 +24,10 @@ weather = {
 }
 
 function weatherLoop(trip) {
+  console.log(trip.weather.length);
+  console.log(trip.wayPoints.length);
   if (trip.weather.length < trip.wayPoints.length) {
+    console.log(i);
     var wayPoint = trip.wayPoints[i];
     console.log(wayPoint);
     var apiRequest = 'https://api.apixu.com/v1/forecast.json?key=' + apixu.key + '&q=' + wayPoint[1] + ',' + wayPoint[0] + '&days=10';

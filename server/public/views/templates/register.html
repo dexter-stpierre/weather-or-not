@@ -1,17 +1,26 @@
 <div class="container">
-  <h1 class="lead">Register User</h1>
+  <h1 class="lead register">Register User</h1>
   <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
-  <form ng-submit="lc.registerUser()">
-    <div>
+  <form ng-submit="lc.registerUser()" name="registrationForm">
+    <md-input-container class="md-block">
         <label for="username">Username:</label>
-        <input type="text" ng-model="lc.user.username" />
-    </div>
-    <div>
+        <input name="username" type="text" ng-model="lc.user.username" />
+        <!-- <div ng-messages="registrationForm.username.$error">
+          <div ng-message="required">This is required</div>
+        </div> -->
+    </md-input-container>
+    <md-input-container class="md-block">
         <label for="password">Password:</label>
-        <input type="password" ng-model="lc.user.password" />
+        <input name="password" type="password" ng-model="lc.user.password" />
+        <!-- <div ng-show="registrationForm.password.$error" ng-messages="registrationForm.password.$error" role="alert">
+          <div ng-message-exp="['required', 'minlength']">
+            Your password must be at least 6 characters
+          </div>
+        </div> -->
+    </md-input-container>
+    <div class="register">
+      <md-button class="md-raised" type="submit" name="submit">Register</md-button>
+      <a href="#login"><md-button class="md-raised">Cancel</mb-button></a>
     </div>
-    <input class="btn btn-default" type="submit" name="submit" value="Register" />
-    <a href="#login">Cancel</a>
   </form>
-
 </div>

@@ -1,4 +1,4 @@
-<div>
+<!-- <div>
   <table>
     <thead>
       <th>Time</th>
@@ -21,6 +21,42 @@
       </tr>
     </tbody>
   </table>
-  <button ng-click="vtc.userService.saveTrip(vtc.trip)">Save trip</button>
-  <button ng-click="vtc.userService.logout()">Log Out</button>
+  <md-button class="md-raised" ng-click="vtc.userService.saveTrip(vtc.trip)">Save trip</md-button>
+</div> -->
+
+<div ng-if="!vtc.trip.weather">
+  <h1>Either make a trip or select a saved trip</h1>
+</div>
+
+<div ng-if="vtc.trip.weather">
+  <md-table-container ng-hide="uc.tripService.calculatingResults">
+    <table md-table ng-model="myTrips_table">
+      <thead md-head>
+        <tr md-row>
+          <th md-column>Time</th>
+          <th md-column>Location</th>
+          <th md-column>Temp</th>
+          <th md-column>Conditions</th>
+        </tr>
+      </thead>
+      <tbody md-body >
+        <tr>
+          <td id="topRow" md-cell colspan="4">{{ vtc.trip.route.originAddress }}</td>
+        </tr>
+        <tr ng-repeat="waypoint in vtc.trip.weather">
+          <td md-cell>{{ vtc.trip.times[$index].hours }}:{{ vtc.trip.times[$index].minutes }}</td>
+          <td md-cell>{{ waypoint.weatherData.location.name }}</td>
+          <td md-cell>{{ waypoint.weatherData.forecast.forecastday[vtc.trip.times[$index].daysUntilDeparture].hour[vtc.trip.times[$index].hours].temp_f }}°</td>
+          <td md-cell><img ng-src="https:{{waypoint.weatherData.forecast.forecastday[vtc.trip.times[$index].daysUntilDeparture].hour[vtc.trip.times[$index].hours].condition.icon}}"
+             alt="{{waypoint.weatherData.forecast.forecastday[vtc.trip.times[$index].daysUntilDeparture].hour[vtc.trip.times[$index].hours].condition.text}}"></td>
+        </tr>
+        <tr>
+          <td id="bottomRow" md-cell colspan="4">{{ vtc.trip.route.destinationAddress }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
+  <div ng-show="vtc.userObject.userName">
+    <md-button ng-hide="vtc.trip.saved" class="md-raised" ng-click="vtc.userService.saveTrip(vtc.trip)">Save trip</md-button>
+  </div>
 </div>

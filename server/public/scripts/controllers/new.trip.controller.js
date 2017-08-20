@@ -3,7 +3,11 @@ myApp.controller('NewTripController', function(UserService, $http, $scope, Trip,
   var vm = this;
   vm.userService = UserService;
   vm.userObject = UserService.userObject;
-  vm.newTrip = {};
+  vm.newTrip = {
+    // departure: {
+    //   timeDate: new Date()
+    // }
+  };
   vm.newTripService = Trip;
 
   // options for data binding with google places autocomplete
@@ -17,6 +21,7 @@ myApp.controller('NewTripController', function(UserService, $http, $scope, Trip,
 			return console.error(error);
 		}
     vm.newTrip.originDetails = details;
+    vm.newTrip.originCity = details.vicinity;
     console.log('setOrigin');
     console.log(vm.newTrip.originAddress);
     console.log('originDetails', vm.newTrip.originDetails);
@@ -27,6 +32,7 @@ myApp.controller('NewTripController', function(UserService, $http, $scope, Trip,
 			return console.error(error);
 		}
     vm.newTrip.destinationDetails = details;
+    vm.newTrip.destinationCity = details.vicinity;
     console.log('setDestination');
     console.log(vm.newTrip.destinationAddress);
     console.log('destinationDetails', vm.newTrip.destinationDetails);

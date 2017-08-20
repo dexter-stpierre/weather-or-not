@@ -1,5 +1,10 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngPlacesAutocomplete']);
-
+var myApp = angular.module('myApp', ['ngRoute', 'ngPlacesAutocomplete', 'ngMaterial', 'md.data.table']);
+  // myApp.config(function ($mdThemingProvider,pickerProvider) {
+  //       pickerProvider.setOkLabel('Save');
+  //       pickerProvider.setCancelLabel('Close');
+  //       //  Over ride day names by changing here
+  //       pickerProvider.setDayHeader('single');  //Options 'single','shortName', 'fullName'
+  //   }
   /// Routes ///
   myApp.config(function($routeProvider, $locationProvider) {
     $locationProvider.hashPrefix('');

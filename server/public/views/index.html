@@ -3,13 +3,22 @@
     <head>
       <meta name="viewport" content="width=device-width">
       <title>Solo Project</title>
-      <link rel="stylesheet" href="styles/style.css">
+      <link href="https://fonts.googleapis.com/css?family=Permanent+Marker|Quattrocento" rel="stylesheet">
+      <link rel="stylesheet" href="vendors/angular-material/angular-material.min.css">
       <link rel="stylesheet" href="vendors/font-awesome-4.7.0/css/font-awesome.css">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.3.0/octicons.min.css">
+      <link rel="stylesheet" href="vendors/angular-material-data-table/dist/md-data-table.min.css">
+      <link rel="stylesheet" href="styles/style.css">
       <script src="scripts/api-keys/google-places-api.js" charset="utf-8"></script>
       <script src="scripts/autocomplete.js" charset="utf-8"></script>
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyANtN7zXwqEGAIwJjpy5vPKDcpsrvtCFm4&libraries=places&callback=initAutocomplete"></script>
       <script type="text/javascript" src="vendors/angular/angular.min.js"></script>
+      <script type="text/javascript" src="vendors/angular-animate/angular-animate.min.js"></script>
+      <script type="text/javascript" src="vendors/angular-aria/angular-aria.min.js"></script>
+      <script type="text/javascript" src="vendors/angular-messages/angular-messages.min.js"></script>
       <script type="text/javascript" src="vendors/angular-route/angular-route.min.js"></script>
+      <script type="text/javascript" src="vendors/angular-material/angular-material.min.js"></script>
+      <script src="vendors/angular-material-data-table/dist/md-data-table.min.js" charset="utf-8"></script>
       <script src="/vendors/ngPlacesAutocomplete.min.js" charset="utf-8"></script>
       <script type="text/javascript" src="scripts/client.js"></script>
       <script type="text/javascript" src="scripts/controllers/info.controller.js"></script>
@@ -17,13 +26,16 @@
       <script type="text/javascript" src="scripts/controllers/user.controller.js"></script>
       <script type="text/javascript" src="scripts/controllers/new.trip.controller.js"></script>
       <script type="text/javascript" src="scripts/controllers/view.trip.controller.js"></script>
+      <script src="scripts/controllers/nav.controller.js" charset="utf-8"></script>
       <script type="text/javascript" src="scripts/services/user.service.js"></script>
       <script src="scripts/services/new.trip.service.js" charset="utf-8"></script>
     </head>
 
     <body ng-app="myApp">
-      <header ng-include="'/views/partials/header.html'"></header>
-      <header ng-include="'/views/partials/nav.html'"></header>
+      <div ng-controller="NavController">
+        <header ng-include="'/views/partials/header.html'"></header>
+        <header ng-include="'/views/partials/nav.html'"></header>
+      </div>
 
       <main ng-view></main>
 

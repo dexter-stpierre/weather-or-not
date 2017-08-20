@@ -1,19 +1,18 @@
 <div class="container">
-    <h1>Weather or Not</h1>
-    <h1 class="lead">Login</h1>
+    <h1 class="lead logIn">Login</h1>
     <h1 class="lead alert alert-danger" role="alert" ng-if="lc.message != ''">{{lc.message}}</h2>
       <form ng-submit="lc.login()">
+        <md-input-container class="md-block">
+          <label for="username">Username</label>
+          <input type="text" ng-model="lc.user.username" placeholder="Enter Username"/>
+        </md-input-container>
+        <md-input-container class="md-block">
+          <label for="password">Password</label>
+          <input type="password" ng-model="lc.user.password" placeholder="Enter Password"/>
+        </md-input-container>
+        <div class="logIn">
+          <md-button class="md-raised" type="submit" name="submit" value="Log In" >Log In</md-button>
+          <a href="#register"><md-button class="md-raised">Register</md-button></a>
         <div>
-          <label for="username">Username:</label>
-          <input type="text" ng-model="lc.user.username" />
-        </div>
-        <div>
-          <label for="password">Password:</label>
-          <input type="password" ng-model="lc.user.password" />
-        </div>
-        <div>
-          <input class="btn btn-default" type="submit" name="submit" value="Log In" />
-          <a href="#register">Register</a>
-        </div>
       </form>
     </div>

@@ -1,18 +1,35 @@
-<div class="">
-  <table>
-    <thead>
-      <th>Origin</th>
-      <th>Destination</th>
-      <th>Date/time of departure</th>
-    </thead>
-    <tbody>
-      <tr ng-repeat="trip in uc.userObject.trips">
-        <td>{{trip.route.originAddress}}</td>
-        <td>{{trip.route.destinationAddress}}</td>
-        <td>{{trip.departure.date | date}} {{trip.departure.time.hours}}:{{trip.departure.time.minutes}}</td>
-        <td><button ng-click="uc.tripService.viewTrip(trip)">View</button></td>
-        <td><button ng-click="uc.tripService.deleteTrip(trip)">Delete</button></td>
-      </tr>
-    </tbody>
-  </table>
+<div ng-if="!uc.userObject.trips[0]">
+  <p>You have no saved trips</p>
+</div>
+
+<div class="loadingScreen" ng-show="uc.tripService.calculatingResults">
+  <h1>Calculating Your Trip</h1>
+  <h3>This will probably take a few minutes</h3>
+  <md-progress-circular class="loadingCircle" md-diameter="96"></md-progress-circular>
+</div>
+
+<div ng-show="uc.userObject.trips[0]">
+  <md-table-container ng-hide="uc.tripService.calculatingResults">
+    <table md-table ng-model="myTrips_table">
+      <thead md-head>
+        <tr md-row>
+          <th md-column><span>Origin</span></th>
+          <th md-column><span>Destination</span></th>
+          <th md-column>Departure</th>
+          <th md-column></th>
+        </tr>
+      </thead>
+      <tbody md-body id="tripsTableBody">
+        <tr ng-repeat="trip in uc.userObject.trips">
+          <td md-cell class="tripsTableBody">{{trip.route.originCity}}</td>
+          <td md-cell>{{trip.route.destinationCity}}</td>
+          <td md-cell class="dateCell" style="padding-right: 10px;">{{trip.departure.date | date}}</td>
+          <td md-cell>
+            <md-button class="md-raised tripsButtons" ng-click="uc.tripService.viewTrip(trip)"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></md-button>
+            <md-button class="md-raised tripsButtons" ng-click="uc.tripService.deleteTrip(trip)"><i class="fa fa-trash-o fa-2x" aria-hidden="true"></i></md-button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </md-table-container>
 </div>

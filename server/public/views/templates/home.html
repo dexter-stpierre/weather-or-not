@@ -1,28 +1,53 @@
 <div class="container">
   <link type="text/css" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500">
-  <link rel="stylesheet" href="styles/autocomplete.css">
-  <div id="new-trip">
+  <!-- <link rel="stylesheet" href="styles/autocomplete.css"> -->
+  <div id="new-trip" name=newTripForm ng-show="!ntc.newTripService.calculatingResults">
     <form class="new-trip-form" ng-submit="ntc.newTripService.submitNewTrip(ntc.newTrip)">
-      <div id="locationField">
+      <md-input-container class="md-block" id="locationField">
         <label>Origin</label>
-        <input class="autocompleteFormat"
-          ng-model="ntc.newTrip.originAddress" ng-places-autocomplete
-          pa-options="ntc.options" pa-on-place-ready="ntc.setOrigin"
-          id="autocomplete" placeholder="Enter your address"
-          onFocus="geolocate()" type="text">
+        <input name="origin"
+        ng-model="ntc.newTrip.originAddress" ng-places-autocomplete
+        pa-options="ntc.options" pa-on-place-ready="ntc.setOrigin"
+        id="autocomplete" placeholder="Enter your origin"
+        onFocus="geolocate()" type="text" >
+      </md-input-container>
+      <md-input-container class="md-block" id="locationField">
+        <label>Destination</label>
+        <input ng-model="ntc.newTrip.destinationAddress"
+        ng-places-autocomplete pa-options="ntc.options" pa-on-place-ready="ntc.setDestination"
+        onFocus="geolocate()" id="autocomplete2"
+        placeholder="Enter your destination" type="text">
+      </md-input-container>
+      <md-input-container class="md-block" id="myDatePicker">
+        <label>Departure Date</label>
+        <!-- <input type="date" ng-model="ntc.newTrip.departure.date"> -->
+        <md-datepicker class="datePicker" ng-model="ntc.newTrip.departure.date" md-placeholder="Enter date"></md-datepicker>
+      </md-input-container>
+      <!-- <div moment-picker="time" format="HH:mm:ss" ng-model="ntc.newTrip.departure.timeDate"> -->
+        <md-input-container class="md-block md-icon-float">
+          <!-- <input type="time" ng-model="ntc.newTrip.departure.timeDate"> -->
+          <!-- <div moment-picker="time" ng-model="ntc.newTrip.departure.timeDate" format="LT" min-view="day">
+          select a time {{ time || '12:00 PM'}} -->
+          <!-- </div> -->
+          <label>Departure Time</label>
+          <!-- <span class="input-group-addon timePickerClock"> -->
+          <!-- <md-icon class="octicon octicon-clock"></i> -->
+          <md-icon md-svg-src="vendors/clock.svg" class="timePickerClock"></md-icon>
+          <!-- <md-icon md-svg-src="social:android"></md-icon> -->
+          <!-- </span> -->
+          <input type="time" class="timePicker" placeholder="Select a time" ng-model="ntc.newTrip.departure.timeDate" ng-model-options="{ updateOn: 'blur' }">
+        </md-input-container>
+      <!-- </div> -->
+      <div class="centerButons">
+        <md-button class="md-raised" type="reset">Reset</md-button>
+        <md-button class="md-raised" type="submit">Submit</md-button>
       </div>
-      <div id="locationField">
-        <label>destination</label>
-        <input class="autocompleteFormat" ng-model="ntc.newTrip.destinationAddress"
-          ng-places-autocomplete pa-options="ntc.options" pa-on-place-ready="ntc.setDestination"
-          onFocus="geolocate()" id="autocomplete2"
-          placeholder="Enter your address" type="text">
-      </div>
-      <label>Time of Departure</label>
-      <input type="date" ng-model="ntc.newTrip.departure.date">
-      <input type="time" ng-model="ntc.newTrip.departure.timeDate"> 
-      <button type="reset">Reset</button>
-      <button type="submit">Submit</button>
     </form>
+  </div>
+
+  <div class="loadingScreen" ng-show="ntc.newTripService.calculatingResults">
+    <h1>Calculating Your Trip</h1>
+    <h3>This will probably take a few minutes</h3>
+    <md-progress-circular class="loadingCircle" md-diameter="96"></md-progress-circular>
   </div>
 </div>

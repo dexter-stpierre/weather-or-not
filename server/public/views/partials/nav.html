@@ -1,9 +1,15 @@
-<div class="navbar">
-  <div class="container">
+<md-sidenav class="navbar" class="md-sidenav-left" md-component-id='left'>
+  <!-- <md-toolbar class="md-theme-indigo">
+    <h1 class="md-toolbar-tools">Disabled Backdrop</h1>
+  </md-toolbar> -->
+  <md-content layout-margin class="navbar">
+    <i class="fa fa-times fa-4x navbarx" aria-hidden="true" ng-click="toggleLeft()"></i>
+    <span class="username">{{userObject.userName}}</span>
     <ul>
-      <li><a href="#/newTrip">Create a trip</a></li>
-      <li><a href="#/myTrips">My Trips</a></li>
-      <li><a href="#/login">Login</a></li>
+      <li><a href="#/home" ng-click="toggleLeft()">Create a trip</a></li>
+      <li><a href="#/myTrips" ng-click="toggleLeft()">My Trips</a></li>
+      <li ng-hide="userObject.userName"><a href="#/login" ng-click="toggleLeft()">Login</a></li>
+      <li ng-click="UserService.logout()" ng-hide="!userObject.userName"><a ng-click="toggleLeft()">Logout</a></li>
     </ul>
-  </div>
-</div>
+  </md-content>
+</md-sidenav>

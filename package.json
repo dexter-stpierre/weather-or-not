@@ -10,21 +10,23 @@
   "author": "Scott Bromander, Kris Szafranski",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.6.4",
-    "angular-route": "^1.6.4",
+    "angular": "^1.6.5",
+    "angular-animate": "^1.6.5",
+    "angular-aria": "^1.6.5",
+    "angular-material": "^1.1.4",
+    "angular-md-table": "^1.4.0",
+    "angular-messages": "^1.6.5",
+    "angular-route": "^1.6.5",
     "bcrypt": "^1.0.2",
     "body-parser": "^1.13.3",
     "bootstrap": "^3.3.5",
     "express": "^4.13.1",
     "express-session": "^1.13.0",
-    "http": "0.0.0",
     "https": "^1.0.0",
     "mongoose": "^4.4.6",
     "ng-places-autocomplete": "^1.2.1",
     "passport": "^0.2.2",
     "passport-local": "^1.0.0",
     "path": "^0.11.14",
-    "url": "^0.11.0",
-    "when": "^3.7.8"
   }
 }

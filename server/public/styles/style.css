@@ -1,8 +1,9 @@
 body, html {
   margin: 0;
   padding: 0;
-  font-family: sans-serif;
+  font-family: 'Quattrocento', serif;
   font-size: 14px;
+  background-color: #DBD4E5;
 }
 
 .instructions .container h1 {
@@ -11,9 +12,10 @@ body, html {
 }
 
 .instructions {
-  background-color: #333333;
-  color: #DDDDDD;
+  background-color: #757DDA;
+  color: 	#1B29CA;
   padding: 15px;
+  /*width: 100%;*/
 }
 
 #entryForm {
@@ -24,13 +26,13 @@ body, html {
   margin-top: 10px;
 }
 
-#header-bar {
-  height: 100px;
-}
-
+/*#header-bar {
+  background-color:
+}*/
+/*
 #three-bars {
-  font-size: 100px;
-}
+  font-size: 40px;
+}*/
 
 .container p{
   margin-top : 14px;
@@ -57,9 +59,13 @@ body, html {
 }
 
 .navbar {
-  background-color: #333333;
+  background-color: #757DDA;
   width: 100%;
   border-radius: 0px;
+}
+
+.navbar ul li {
+  color: Black;
 }
 
 ul {
@@ -71,18 +77,134 @@ ul {
 
 li {
   float: left;
+  text-align: center;
+  width: 100%;
 }
 
 li a {
   display: block;
-  color: white;
+  color: Black;
   text-align: center;
   padding: 14px 16px;
   text-decoration: none;
+  font-size: 2em;
 }
 
 /* Change the link color to #111 (black) on hover */
 li a:hover {
   text-decoration: underline;
-  color: #eee;
+  color: purple;
+}
+
+.loadingScreen {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.loadingCircle {
+  margin: 0 auto;
+}
+
+.logIn {
+  text-align: center;
+}
+.register {
+  text-align: center;
+  text-decoration: none;
+}
+
+.centerButons {
+  text-align: center;
+}
+
+#headerLogo {
+  margin-top: 10px;
+  float: right;
+  font-size: 2em;
+  text-decoration: none;
+  color: 	#1B29CA;
+  font-family: 'Permanent Marker', cursive;
+}
+
+.noDecoration {
+  text-decoration: none;
+}
+
+.timePicker {
+  float: right;
+  display: flex;
+}
+
+.timePickerClock {
+  display: inline-flex;
+}
+
+table {
+  /*width: 50%;*/
+}
+
+th, td {
+  padding: 15px;
+}
+
+.tripsButtons {
+  /*size: .25em;*/
+  min-height: 20px;
+  min-width: 50px;
+  font-size: 10px;
+  margin-right: 0;
+  margin-left: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+table{
+  border-collapse: collapse;
+}
+td {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+  border-collapse: collapse;
+}
+
+md-table-container {
+  height: 100%;
+  width: 100%;
+}
+
+#topRow {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+#bottomRow {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+table.md-table td.md-cell {
+  font-size: 18px;
+}
+
+table.md-table:not(.md-row-select) td.md-cell:nth-child(n+2):nth-last-child(n+2), table.md-table:not(.md-row-select) th.md-column:nth-child(n+2):nth-last-child(n+2) {
+  padding-right: 24px;
+}
+
+/*#myTimePicker {
+  display: inline;
+  width: 40% auto;
+}
+
+#myDatePicker {
+  width: 40% auto;
+}*/
+
+tbody tr .dateCell {
+  padding-right: 10px;
+}
+
+.username{
+  font-size: 2em;
+  float: right;
+  padding-top: 20px;
+  padding-right: 10px;
 }

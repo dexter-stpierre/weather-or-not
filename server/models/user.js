@@ -9,6 +9,8 @@ var TripSchema = new Schema({
   route: {
     destination: [],
     destinationAddress: String,
+    destinationCity: String,
+    originCity: String,
     originAddress: String,
     directions: [],
     distance: Number,

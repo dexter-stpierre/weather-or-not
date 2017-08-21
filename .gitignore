@@ -3,5 +3,4 @@ node_modules/
 .idea/
 *.log
 *.logs
-server/api-keys/
-server/public/scripts/api-keys/
+api-keys/

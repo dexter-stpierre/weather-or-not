@@ -1,8 +1,8 @@
 //requires
 var https = require('https');
 var compare = require('./map.comparisons.js');
-var openRoute = require('../api-keys/open-route-services-api.js');
-var weather = require('./weather-api-requests.js');
+var openRoute = process.env.OPENROUTE || require('../api-keys/open-route-services-api.js');
+var weather = process.env.APIXU ||  require('./weather-api-requests.js');
 
 //define global variables
 var i;

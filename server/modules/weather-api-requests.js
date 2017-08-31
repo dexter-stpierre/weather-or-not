@@ -1,6 +1,6 @@
 //requires
 var https = require('https');
-var apixu = require('../api-keys/apixu.js');
+var apixu = process.env.APIXU || require('../api-keys/apixu.js');
 var requests = require('./api.requests.js')
 
 var i

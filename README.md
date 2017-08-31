@@ -1,34 +1,43 @@
-# Name of Project
+# Weather or Not
 
-One Paragraph of project description goes here. Link to the live version of the app if it's hosted on Heroku.
+This is an app to help with planning a road trip. You input your starting and ending location and it will display the weather along your route in one hour increments.
 
 ## Built With
 
-List technologies and frameworks here
+- HTML5
+- CSS3
+- JavaScript
+- AngularJS
+- AngularJS Material
+- Node.js
+- Express.js
+- Mongo
+- Google Places Autocomplete API
+- OpenRouteService
+- APIXU
 
 ## Getting Started
-
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
 
 ### Prerequisites
 
 Link to software that is required to install the app (e.g. node).
 
 - [Node.js](https://nodejs.org/en/)
-- List other prerequisites here
+- sign up for [OpenRouteService](https://developers.openrouteservice.org/portal/)
+- sign up for [APIXU](https://www.apixu.com/)
+- sign up for [Google Place Autocomplete](https://developers.google.com/places/web-service/autocomplete)
 
 
 ### Installing
 
-Steps to get the development environment running.
-
-## Screen Shot
-
-Include one or two screen shots of your project here (optional). Remove if unused.
+- Copy api-keys-config and add your own api keys to the variables
+- run npm install
+- run mongod in terminal
+- open app in localhost:5000
 
 ## Documentation
 
-Link to a read-only version of your scope document or other relevant documentation here (optional). Remove if unused.
+[Scope](https://docs.google.com/document/d/1ulfkl7pQFFP0avPOMnC62dSNTJL0R1p-98OZdSi_gDU/edit?usp=sharing)
 
 ### Completed Features
 

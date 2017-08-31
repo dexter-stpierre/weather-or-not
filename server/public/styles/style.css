@@ -3,7 +3,7 @@ body, html {
   padding: 0;
   font-family: 'Quattrocento', serif;
   font-size: 14px;
-  background-color: #DBD4E5;
+  background-color: #BEBEBE;
 }
 
 .instructions .container h1 {
@@ -12,8 +12,8 @@ body, html {
 }
 
 .instructions {
-  background-color: #757DDA;
-  color: 	#1B29CA;
+  background-color: #5C5C5C;
+  color: 	#FFF336;
   padding: 15px;
   /*width: 100%;*/
 }
@@ -59,7 +59,7 @@ body, html {
 }
 
 .navbar {
-  background-color: #757DDA;
+  background-color: #BEBEBE;
   width: 100%;
   border-radius: 0px;
 }
@@ -122,7 +122,7 @@ li a:hover {
   float: right;
   font-size: 2em;
   text-decoration: none;
-  color: 	#1B29CA;
+  color: 	#FFF336;
   font-family: 'Permanent Marker', cursive;
 }
 

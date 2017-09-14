@@ -73,6 +73,7 @@ myApp.factory('Trip', function($http, $location, UserService){
         console.log(TripService.newTrip);
         TripService.trip = TripService.newTrip;
         TripService.calculatingResults = false;
+        console.log(TripService.trip);
         $location.path("/viewtrip");
       })
     },

@@ -33,7 +33,7 @@ Link to software that is required to install the app (e.g. node).
 - Copy api-keys-config and add your own api keys to the variables
 - run npm install
 - run mongod in terminal
-- open app in localhost:5000
+- open app in localhost:5001
 
 ## Documentation
 
@@ -43,24 +43,21 @@ Link to software that is required to install the app (e.g. node).
 
 High level list of items completed.
 
-- [x] Feature a
-- [x] Feature b
+- Ability to input a starting location and end location and date and time of departure and see the weather on your route
+- Ability to save trips and view saved trips
 
 ### Next Steps
 
-Features that you would like to add at some point in the future.
+- Add ability to edit formats of distance and temperature
+- Add ability to add a home location to be used as a default starting location
 
-- [ ] Feature c
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Authors
 
-* Name of author(s)
+* Dexter St-Pierre
 
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
+* Huck Brock
+* Chris Black
